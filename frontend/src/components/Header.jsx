@@ -7,7 +7,6 @@ const navItemInfo = [
     {name: "Pages"},
     {name: "Pricing"},
     {name: "FAQ"},
-    {name: "Contact"},
 ]
 
 const NavItem = ({name}) => {
