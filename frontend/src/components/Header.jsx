@@ -12,6 +12,14 @@ const navItemInfo = [
 ]
 
 const NavItem = ({item}) => {
+    const [dropdown, setDropdown] = useState(false);
+
+    const toggleDropdownHandler = () => {
+        setDropdown((curState) => {
+            return !curState;
+        });
+    };
+
     return (
         <li className='relative group hover:font-bold'>
             {item.type === "link" ? (
@@ -21,15 +29,16 @@ const NavItem = ({item}) => {
                     </a>
                 </>
             ) : (
-                <>
-                    <a href="/" className='px-4 py-2 flex gap-x-1 items-center'>
+                <div className='flex flex-col items-center'>
+                    <button  className='px-4 py-2 flex gap-x-1 items-center' 
+                            onClick={toggleDropdownHandler}>
                         <span>
                             {item.name}
                         </span>
                         <IoIosArrowDown></IoIosArrowDown>
-                    </a>
-                    <div className='hidden transiotion-all duration-500 pt-4 absolute bottom-0 right-0 transform translate-y-full group-hover:block w-max'>
-                        <ul className='flex flex-col shadow-lg rounded-lg overflow-hidden'>
+                    </button>
+                    <div className={`${dropdown ? "block" : "hidden"} lg:hidden transition-all duration-500 pt-4 lg:absolute lg:bottom-0 lg:right-0 lg:transform lg:translate-y-full lg:group-hover:block w-max`}>
+                        <ul className='bg-dark-soft lg:bg-transparent text-center flex flex-col shadow-lg rounded-lg overflow-hidden'>
                             {item.items.map((page) => (
                                     <a href='/' className='hover:bg-dark-hard hover:text-white px-4 py-2 text-white lg:text-dark-soft'>
                                         {page}
@@ -37,7 +46,7 @@ const NavItem = ({item}) => {
                             ))}
                         </ul>
                     </div>
-                </>)}
+                </div>)}
             
         </li>
     );
@@ -52,7 +61,7 @@ const Header = () => {
         });
     };
   return (
-    <section>
+    <section className='sticky top-0 left-0 right-0 z-50'>
         <header className='container mx-auto px-5 flex justify-between py-4 items-center'>
             <div>
                  <img className='w-16' src={images.Logo} alt='logo'></img> 
@@ -71,7 +80,7 @@ const Header = () => {
                     <NavItem key={item.name} item={item} />
                   ))}
                 </ul>
-                <button className='mt-5 lg:mt-0 border-2  border-green-800 px-6 py-2 rounded-full text-white lg:text-green-800 font-semibold hover:bg-green-800 hover:text-white transition-all durration-300'>
+                <button className='mt-5 lg:mt-0 border-2 border-pink-600 px-6 py-2 rounded-full text-white lg:text-pink-600 font-semibold hover:bg-dark-soft hover:text-white transition-all durration-300'>
                     Sign In
                 </button>
             </div>
